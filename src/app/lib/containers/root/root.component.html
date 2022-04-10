@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+  <button (click)="addFolder()">Add folder to root</button>
+
+  <div
+    formArrayName="folderRoot"
+    *ngFor="
+      let folderRoot of form.controls.folderRoot?.value;
+      let i = index;
+      trackBy: trackByFn
+    "
+  >
+      <app-folder
+        [folderForm]="form.controls.folderRoot.value[i]"
+        [index]="i"
+        (updateName)="onUpdateName($event)"
+      ></app-folder>
+    <!-- <ng-container [formGroupName]="i">
+        <input placeholder="name" formControlName="name" />
+      </ng-container> -->
+  </div>
+  =={{ form.controls.value | json }}==
+</form>
