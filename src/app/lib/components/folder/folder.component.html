@@ -1,5 +1,8 @@
-<div class="row">
+<div class="row" formControlName="index">
   <input placeholder="name" value="{{ folderForm.name }}" [(ngModel)]="name" />
   <button (click)="add()">+</button>
 </div>
 = {{ folderForm | json }}=
+<!-- <div [formGroupName]="index">
+  <input placeholder="name" formControlName="name" />
+</div> -->

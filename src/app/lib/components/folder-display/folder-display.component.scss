@@ -7,17 +7,8 @@
   background-color: #1976d2;
   color: white;
   font-weight: 600;
-  border-radius: 3px;
+  border-radius: 50%;
   border-style: none;
-}
-
-.close-action {
-  margin: 3px;
-  color: #1976d2;
-  background-color: white;
-  font-weight: 600;
-  border-radius: 3px;
-  border: 2px solid #1976d2;
 }
 
 .margin-bottom {
@@ -33,12 +24,15 @@
   padding: 6px 10px;
 }
 
-.confirm-add-padding {
+.confirm-add {
   padding: 4px 11px;
-}
-
-.close-padding {
-  padding: 4.5px 10px;
+  width: 30px;
+  margin-right: 3px;
+  span {
+    position: relative;
+    right: 1px;
+    top: 1px;
+  }
 }
 
 .larger-font {
@@ -78,7 +72,9 @@ input:focus {
 .flex-container {
   display: flex;
   flex-direction: row;
+  margin-bottom: 6px;
 }
+
 .center {
   justify-content: center;
 }

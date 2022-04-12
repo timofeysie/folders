@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { NodeModel } from '../../models/node-model';
 
 
 @Component({
@@ -10,35 +11,48 @@ import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 export class RootComponent implements OnInit {
   form: FormGroup;
   ids = 0;
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      folderRoot: this.fb.array([]),
+  constructor(private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      folderRoot: this.formBuilder.array([]),
     });
   }
 
   ngOnInit(): void {}
+
+  confirmAdd(index: number) {
+    const folders = this.form.controls.folderRoot as FormArray;
+    const name = folders.controls[index].value?.name;
+    if (name) {
+      const folder = folders.controls[index].get('editing');
+      folder?.setValue(false);
+    }
+  }
 
   addFolder() {
     const type = 'folder';
     this.ids++;
     const folders = this.form.controls.folderRoot as FormArray;
     folders.push(
-      this.fb.group({
+      this.formBuilder.group({
         type: type,
         name: '',
         id: this.ids,
+        children: this.formBuilder.array([]),
+        editing: true,
       })
     );
   }
 
-  onUpdateName(event: any) {
-    console.log('event', event);
-    console.log('name', this.form.controls.folderRoot.value[event.index]);
-    // this.form.controls.folderRoot['controls']?.name?.setValue(event.name);
-    // this.form.controls.folderRoot.value[event.index]
+  deleteFolder(index: number) {
+    const folders = this.form.controls.folderRoot as FormArray;
+    folders.removeAt(index);
   }
 
   trackByFn(index: number, item: any) {
     return this.ids;
+  }
+
+  onAddSubItem(event: any) {
+    console.log('event', event);
   }
 }

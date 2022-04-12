@@ -1,5 +1,10 @@
-<form [formGroup]="form">
-  <button (click)="addFolder()">Add folder to root</button>
+<form [formGroup]="form" class="form-container">
+  <button
+    class="actions add-folder-padding margin-bottom"
+    (click)="addFolder()"
+  >
+    Add folder to root
+  </button>
 
   <div
     formArrayName="folderRoot"
@@ -9,14 +14,39 @@
       trackBy: trackByFn
     "
   >
-      <app-folder
+    <!-- <app-folder
         [folderForm]="form.controls.folderRoot.value[i]"
         [index]="i"
         (updateName)="onUpdateName($event)"
-      ></app-folder>
-    <!-- <ng-container [formGroupName]="i">
-        <input placeholder="name" formControlName="name" />
-      </ng-container> -->
+      ></app-folder> -->
+    <div
+      class="row flex-container center"
+      *ngIf="form.controls.folderRoot.value[i]['editing']; else display"
+    >
+      <ng-container [formGroupName]="i">
+        <app-folder-icon class="folder-position"></app-folder-icon>
+        <input
+          class="fill-available height-21 right-margin"
+          formControlName="name"
+        />
+        <button
+          class="actions confirm-add-padding larger-font"
+          (click)="confirmAdd(i)"
+        >
+          +
+        </button>
+        <button class="close-action close-padding" (click)="deleteFolder(i)">
+          <span class="x-position">x</span>
+        </button>
+      </ng-container>
+    </div>
+    <ng-template #display>
+      <app-folder-display
+        [folder]="form.controls.folderRoot.value[i]"
+        [index]="i"
+        (addSubItem)="onAddSubItem($event)"
+      ></app-folder-display>
+    </ng-template>
   </div>
-  =={{ form.controls.value | json }}==
+  <pre>{{ form.value | json }}</pre>
 </form>
