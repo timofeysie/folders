@@ -1,11 +1,95 @@
-<div class="row flex-container center">
+<div class="row border flex-container center">
   <app-folder-icon class="folder-position"></app-folder-icon>
   <div class="fill-available height-21 right-margin">
     {{ folder.name }}
   </div>
-  <button class="actions confirm-add larger-font">
-    <span>+</span></button>
-  <button class="actions">
+  <button
+    class="actions show-on-hover confirm-add larger-font"
+    (click)="handleAddChild()"
+  >
+    <span>+</span>
+  </button>
+  <button
+    class="actions show-on-hover delete-icon"
+    (click)="handleDeleteNode()"
+  >
     <app-trash-icon></app-trash-icon>
   </button>
+</div>
+
+<!-- Choose file or folder type node -->
+<div *ngIf="addChildMode" class="row flex-container right add-file-or-folder">
+  <div class="button-container">
+    <button class="add-action" (click)="handleAddChildType('file')">
+      File
+    </button>
+    <button class="add-actions" (click)="handleAddChildType('folder')">
+      Folder
+    </button>
+  </div>
+</div>
+
+<!-- Display children -->
+<div
+  *ngIf="folder.children"
+  class="row flex-container right add-file-or-folder"
+>
+  <!-- formArrayName="children" -->
+  <div *ngFor="let child of folder.children; let i = index; trackBy: trackByFn">
+    <!-- editing mode -->
+    <!-- For this to work there needs to be form group used here.
+      But what should the formGroupName? 
+    [formGroupName]="children"
+    [formGroupName]="index"
+    [formGroupName]="i" 
+  It's going to be something along the lines of recreating the children form array
+      as it's done in the root.component which then can be passed down and used here:
+    const folders = this.form.controls.folderRoot as FormArray;
+    const children = folders.controls[index].get('children') as FormArray;
+  -->
+    <div
+      class="row flex-container center"
+      *ngIf="child['editing']; else display"
+    >
+      <!--  [formGroupName]="i" -->
+      <ng-container>
+        <app-folder-icon
+          *ngIf="child['type'] === 'folder'"
+          class="folder-position"
+        ></app-folder-icon>
+        <app-file-icon
+          *ngIf="child['type'] === 'file'"
+          class="folder-position"
+        ></app-file-icon>
+        <input
+          class="fill-available height-21 right-margin"
+          formControlName="name"
+        />
+        <button
+          class="actions confirm-add-padding larger-font"
+          (click)="confirmAdd(i)"
+        >
+          +
+        </button>
+        <button
+          class="folder-actions close-action close-padding"
+          (click)="deleteFolder(i)"
+        >
+          <span class="x-position">x</span>
+        </button>
+      </ng-container>
+    </div>
+
+    <!-- display the node -->
+    <div>
+      <ng-template #display>
+        <app-folder-display
+          [folder]="child.value[i]"
+          [index]="i"
+          (addChild)="onAddChild($event, i)"
+          (deleteNode)="deleteFolder(i)"
+        ></app-folder-display>
+      </ng-template>
+    </div>
+  </div>
 </div>

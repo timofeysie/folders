@@ -9,6 +9,7 @@ import { FolderComponent } from './lib/components/folder/folder.component';
 import { FolderIconComponent } from './lib/components/folder-icon/folder-icon.component';
 import { FolderDisplayComponent } from './lib/components/folder-display/folder-display.component';
 import { TrashIconComponent } from './lib/components/trash-icon/trash-icon.component';
+import { FileIconComponent } from './lib/components/file-icon/file-icon.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TrashIconComponent } from './lib/components/trash-icon/trash-icon.compo
     FolderComponent,
     FolderIconComponent,
     FolderDisplayComponent,
-    TrashIconComponent
+    TrashIconComponent,
+    FileIconComponent
   ],
   imports: [
     BrowserModule,

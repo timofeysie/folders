@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { NodeModel } from '../../models/node-model';
-
 
 @Component({
   selector: 'folders-app-root',
@@ -32,20 +31,30 @@ export class RootComponent implements OnInit {
     const type = 'folder';
     this.ids++;
     const folders = this.form.controls.folderRoot as FormArray;
-    folders.push(
-      this.formBuilder.group({
-        type: type,
-        name: '',
-        id: this.ids,
-        children: this.formBuilder.array([]),
-        editing: true,
-      })
-    );
+    folders.push(this.formBuilder.group(this.createNode(type)));
   }
 
   deleteFolder(index: number) {
     const folders = this.form.controls.folderRoot as FormArray;
     folders.removeAt(index);
+  }
+
+  onAddChild(type: string, index: number) {
+    const folders = this.form.controls.folderRoot as FormArray;
+    const children = folders.controls[index].get('children') as FormArray;
+    if (children) {
+      children.push(this.formBuilder.group(this.createNode(type)));
+    }
+  }
+
+  createNode(type: string) {
+    return {
+      type: type,
+      name: '',
+      id: this.ids,
+      children: this.formBuilder.array([]),
+      editing: true,
+    };
   }
 
   trackByFn(index: number, item: any) {

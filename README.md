@@ -119,12 +119,22 @@ Of course we need children also.  Could add an empty group array initially, or w
 For now, components will do.  No third party libraries needed.
 
 ng g component lib/components/folder-icon
-
 ng g component lib/components/trash-icon
+ng g component lib/components/file-icon
 
 ### Folder display component
 
 ng g component lib/components/folder-display
+
+## Child nodes
+
+Remaining work at this point are the following tasks:
+
+5. The user should be able to add a node as a child to a folder by clicking a button that becomes visible on a folder upon hover. The user should not be able to add a child node to a file.
+6. Upon adding a child node to a folder, the user should be presented with two buttons to decide if the newly added child node is a file or a folder.
+7. The user should be able to delete a node via a delete button that becomes visible on a file or folder upon hover.
+
+While working on the folder-display component, I ran into "formControlName must be used with a parent formGroup directive" errors again.  This definitely needs to be solved to continue with the task so that the components can be shared recursively to create the tree structure.  Otherwise there will be a horrible duplication of code situation which is already starting to creep it.
 
 ## Things to consider
 

@@ -14,7 +14,12 @@
       trackBy: trackByFn
     "
   >
-    <!-- <app-folder
+    <!-- 
+      Using the folder component is needed to share the add filename functionality
+      so that the edit name functionality doesn't have to be repeated in the
+      folder-display component.  See the README section: folder component form group issue
+      for details on what needs to be solved to allow this.
+      <app-folder
         [folderForm]="form.controls.folderRoot.value[i]"
         [index]="i"
         (updateName)="onUpdateName($event)"
@@ -40,11 +45,13 @@
         </button>
       </ng-container>
     </div>
+    <!-- Display the node -->
     <ng-template #display>
       <app-folder-display
         [folder]="form.controls.folderRoot.value[i]"
         [index]="i"
-        (addSubItem)="onAddSubItem($event)"
+        (addChild)="onAddChild($event, i)"
+        (deleteNode)="deleteFolder(i)"
       ></app-folder-display>
     </ng-template>
   </div>
