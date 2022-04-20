@@ -1,6 +1,16 @@
+import { FormArray } from '@angular/forms';
+
 export class NodeModel {
-  type: 'folder' | 'file' | 'unset' | null;
+  type: Type | null;
   name?: string;
-  children?: NodeModel[];
+  children?: NodeModel[] | FormArray;
   id: string;
+  editing?: boolean;
+}
+
+export enum Type {
+  'folder' = 'folder',
+  'file' = 'file',
+  'unset' = 'unset',
+  null = 'null',
 }

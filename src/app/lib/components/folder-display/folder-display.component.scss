@@ -30,6 +30,11 @@
   padding: 6px 10px;
 }
 
+.name-input {
+  max-width: 300px;
+  display: contents;
+}
+
 .confirm-add {
   padding: 4px 11px;
   width: 30px;
@@ -65,7 +70,7 @@ input:focus {
 .row {
   width: 100%;
   border-radius: 3px;
-  padding: 6px;
+  padding: 0 6px 0 6px;
   height: 30px;
   align-items: center;
 }
@@ -75,9 +80,27 @@ input:focus {
 }
 
 .flex-container {
+  display: contents;
+  height: 45px;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.row {
   display: flex;
   flex-direction: row;
-  margin-bottom: 6px;
+}
+
+.dir-structure {
+  margin-left: 23px;
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
 }
 
 .center {

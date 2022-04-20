@@ -48,9 +48,11 @@
     <!-- Display the node -->
     <ng-template #display>
       <app-folder-display
+        [children]="children"
         [folder]="form.controls.folderRoot.value[i]"
         [index]="i"
         (addChild)="onAddChild($event, i)"
+        (confirmAddChild)="handleConfirmAddChild($event)"
         (deleteNode)="deleteFolder(i)"
       ></app-folder-display>
     </ng-template>
